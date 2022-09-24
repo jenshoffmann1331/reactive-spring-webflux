@@ -51,4 +51,19 @@ class MovieInfoRepositoryIntegrationTest {
                 .expectNextCount(3)
                 .verifyComplete();
     }
+
+    @Test
+    void findById() {
+        // given
+
+        // when
+        var moviesInfoMono = movieInfoRepository.findById("abc").log();
+
+        // then
+        StepVerifier.create(moviesInfoMono)
+                .assertNext(movieInfo -> {
+                    assertEquals("Dark Knight Rises", movieInfo.getName());
+                })
+                .verifyComplete();
+    }
 }
